@@ -40,9 +40,101 @@ Incluído:
 - dados do cliente;
 - endpoints documentados.
 
+## Onde encontrar cada entrega
+
+- Casos de teste: `docs/casos-de-testes.md`
+- Estratégia de testes: `docs/estrategia-dos-testes.md`
+- Resultados dos testes: `docs/resultados-dos-testes.md`
+- Bugs encontrados: `docs/bugs.md`
+- Ambiguidades encontradas: `docs/ambiguidades.md`
+- Uso de IA: `docs/uso-ia.md`
+- Evidências: `evidencias/`
+- Testes de API: `postman/`
+- Automação Playwright: `tests/`
+
 ## Automação Playwright
 
-A automação cobre 3 cenários da aplicação.
+A automação cobre 4 cenários da aplicação.
+
+### Implementação realizada
+
+Além do mínimo solicitado no desafio, a suíte atual possui **4 cenários automatizados em Playwright**, executados no navegador Chromium.
+Automação em Playwright executada com **4 cenários automatizados e 4 aprovados**.
+
+Os testes estão organizados nos arquivos:
+
+- `tests/carrinho.spec.ts`
+- `tests/finalizacao-compra.spec.ts`
+
+### Cenários automatizados
+
+1. **Aplicar o cupom BEMVINDO10 e recalcular o pedido**
+   - valida a aplicação do cupom válido;
+   - valida o recálculo do pedido após o desconto.
+
+2. **Rejeitar um cupom inexistente sem aplicar desconto**
+   - valida o comportamento da aplicação para um cupom inválido;
+   - garante que nenhum desconto seja aplicado.
+
+3. **Limitar a quantidade do produto a 5 unidades**
+   - valida a regra de quantidade máxima permitida por produto no carrinho.
+
+4. **Finalizar um pedido válido com cupom e frete grátis**
+   - valida o fluxo de compra;
+   - utiliza cupom de desconto;
+   - valida a aplicação do frete grátis;
+   - valida a finalização do pedido.
+
+### Como baixar e preparar o projeto
+
+Para executar a automação é necessário ter instalado:
+
+- [Node.js]
+- npm, instalado junto com o Node.js
+
+#### 1. Clonar o repositório
+
+Abra o terminal e execute:
+
+```bash
+git clone https://github.com/joelrocha68/desafio-verzel.git
+```
+
+#### 2. Acessar a pasta do projeto
+
+```bash
+cd desafio-verzel
+```
+
+#### 3. Instalar as dependências
+
+```bash
+npm install
+```
+
+#### 4. Instalar o Chromium utilizado pelo Playwright
+
+```bash
+npx playwright install chromium
+```
+
+#### 5. Executar os testes automatizados
+
+Na raiz do projeto, execute:
+
+```bash
+npx playwright test
+```
+
+#### 6. Visualizar o relatório HTML
+
+Após a execução dos testes:
+
+```bash
+npx playwright show-report
+```
+
+O relatório HTML será aberto no navegador, permitindo visualizar os cenários executados e os resultados de cada teste.
 
 ## Resultado atual
 
