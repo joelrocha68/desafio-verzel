@@ -1,0 +1,1297 @@
+{
+  "info": {
+    "_postman_id": "88cd3031-e5fb-45c8-8846-8d618131c36a",
+    "name": "Verzel Loja- Desafio QA",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34985808"
+  },
+  "item": [
+    {
+      "name": "01 - Produtos",
+      "item": [
+        {
+          "name": "Listar produtos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/produtos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "produtos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Consultar produto pelo ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/produtos/P001",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "produtos",
+                "P001"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Produto inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/produtos/P999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "produtos",
+                "P999"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02 - Carrinho - Regras de negócio da loja",
+      "item": [
+        {
+          "name": "Um produto mais cupom BEMVINDO10",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P005\",\n      \"quantidade\": 1\n    }\n  ],\n  \"cupom\": \"BEMVINDO10\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "cupom bemvindo10 com espaço",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P005\",\n      \"quantidade\": 1\n    }\n  ],\n  \"cupom\": \"  bemvindo10  \"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cupom inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P005\",\n      \"quantidade\": 1\n    }\n  ],\n  \"cupom\": \"NAO EXISTE ESSE CUPOM\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cupom expirado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P005\",\n      \"quantidade\": 1\n    }\n  ],\n  \"cupom\": \"VERAO2026\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Subtotal 199.80 com anterior ao limite",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P002\",\n      \"quantidade\": 1\n    },\n    {\n      \"produtoId\": \"P001\",\n      \"quantidade\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Subtotal exatamente 200 no limite",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P005\",\n      \"quantidade\": 2\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Frete usando subtotal antes do desconto",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P005\",\n      \"quantidade\": 2\n    }\n  ],\n  \"cupom\": \"BEMVINDO10\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Exemplo de arredondamento",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P002\",\n      \"quantidade\": 1\n    },\n    {\n      \"produtoId\": \"P004\",\n      \"quantidade\": 2\n    }\n  ],\n  \"cupom\": \"BEMVINDO10\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validar quantidade total no carrinho de 5 produtos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P004\",\n      \"quantidade\": 5\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03 - Carrinho - Outras Validações",
+      "item": [
+        {
+          "name": "Validar quantidade de 6 produtos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P004\",\n      \"quantidade\": 6\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validar Itens ausentes",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validar Itens vazios",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validar Item inválido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P001\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validar produto inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P9999999\",\n      \"quantidade\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validar item duplicado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P001\",\n      \"quantidade\": 1\n    },\n    {\n      \"produtoId\": \"P001\",\n      \"quantidade\": 2\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validar quantidade zero",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P001\",\n      \"quantidade\": 0\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validar  quantidade fracionada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P001\",\n      \"quantidade\": 1.5\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "validar quantidade com string",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": \"P001\",\n      \"quantidade\": \"1\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "04 - Pedidos",
+      "item": [
+        {
+          "name": "Pedido válido com cupom",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": {\n    \"nome\": \"Maria Silva\",\n    \"email\": \"maria@teste.com\",\n    \"cep\": \"01310-100\"\n  },\n  \"itens\": [\n    {\n      \"produtoId\": \"P005\",\n      \"quantidade\": 1\n    }\n  ],\n  \"cupom\": \"BEMVINDO10\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/pedidos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pedidos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pedido válido sem cupom",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": {\n    \"nome\": \"Maria Silva\",\n    \"email\": \"maria@teste.com\",\n    \"cep\": \"01310100\"\n  },\n  \"itens\": [\n    {\n      \"produtoId\": \"P007\",\n      \"quantidade\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/pedidos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pedidos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Nome inválido sem sobrenome",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": {\n    \"nome\": \"Mariasemsobrenome\",\n    \"email\": \"maria@exemplo.com\",\n    \"cep\": \"01310100\"\n  },\n  \"itens\": [\n    {\n      \"produtoId\": \"P005\",\n      \"quantidade\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/pedidos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pedidos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validar email inválido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": {\n    \"nome\": \"Maria Silva\",\n    \"email\": \"maria@\",\n    \"cep\": \"01310100\"\n  },\n  \"itens\": [\n    {\n      \"produtoId\": \"P005\",\n      \"quantidade\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/pedidos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pedidos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CEP inválido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": {\n    \"nome\": \"Teste teste\",\n    \"email\": \"teste@teste.com\",\n    \"cep\": \"123\"\n  },\n  \"itens\": [\n    {\n      \"produtoId\": \"P005\",\n      \"quantidade\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/pedidos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pedidos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cupom inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": {\n    \"nome\": \"Jose Alves\",\n    \"email\": \"jose@teste.com\",\n    \"cep\": \"01310100\"\n  },\n  \"itens\": [\n    {\n      \"produtoId\": \"P005\",\n      \"quantidade\": 1\n    }\n  ],\n  \"cupom\": \"NAOEXISTECupom\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/pedidos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pedidos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cupom expirado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": {\n    \"nome\": \"Maria Silva\",\n    \"email\": \"maria@exemplo.com\",\n    \"cep\": \"01310100\"\n  },\n  \"itens\": [\n    {\n      \"produtoId\": \"P005\",\n      \"quantidade\": 1\n    }\n  ],\n  \"cupom\": \"VERAO2026\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/pedidos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pedidos"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "05 - Erros em geral",
+      "item": [
+        {
+          "name": "Rota inexistente na API",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rota-inexistente",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rota-inexistente"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Método não permitido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/produtos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "produtos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "JSON inválido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "teste",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carrinho/calcular",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carrinho",
+                "calcular"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://verzel-store.qa-test-verzel-store.workers.dev/api"
+    }
+  ]
+}
